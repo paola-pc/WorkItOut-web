@@ -82,7 +82,7 @@ const Modal: React.FC<ModalProps> = ({
             className={`
               translate
               duration-300
-              h-full
+              h-fit
               ${showModal ? 'translate-y-0' : 'translate-y-full'}
               ${showModal ? 'opacity-100' : 'opacity-0'}
              `}
@@ -158,7 +158,7 @@ const Modal: React.FC<ModalProps> = ({
                     onClick={handleSubmit}
                   />
                 </div>
-
+              {footer}
               </div>
             </div>
           </div>
