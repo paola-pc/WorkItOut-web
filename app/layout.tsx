@@ -3,6 +3,7 @@ import Navbar from './components/navbar/Navbar'
 import './globals.css'
 import { Nunito } from 'next/font/google'
 import ToasterProvider from './providers/ToasterProvider'
+import Stopwatch from './components/stopwatch/Stopwatch'
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         <ToasterProvider/>
         <RegisterModal />
         <Navbar />
+        <Stopwatch/>
         {children}
       </body>
     </html>
