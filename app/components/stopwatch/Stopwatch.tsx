@@ -30,15 +30,30 @@ const Stopwatch = () => {
 
   return (
     <div className="relative">
-      <div className="absolute mt-24 flex flex-col items-center p-10 ">
-        <div id="time-container" className="text-2xl">
-          <span>{hours.toString().padStart(2, '0')}:</span>
-          <span>{minutes.toString().padStart(2, '0')}:</span>
-          <span>{seconds.toString().padStart(2, '0')}:</span>
-          <span>{milliseconds.toString().padStart(2, '0')}</span>
+      <div className="absolute mt-24 flex flex-col items-center p-6
+        border border-black border-2
+        rounded-lg
+        text-neutral-900
+
+      ">
+        <div id="time-container"
+          className="
+            text-2xl
+            text-amber-200 
+            bg-black 
+            rounded-xl
+            p-3 mb-3
+            
+          "
+        >
+          <span style={{ textShadow: '1px 1px 2px yellow'}}>{hours.toString().padStart(2, '0')}:</span>
+          <span style={{ textShadow: '1px 1px 2px yellow' }}>{minutes.toString().padStart(2, '0')}:</span>
+          <span style={{ textShadow: '1px 1px 2px yellow' }}>{seconds.toString().padStart(2, '0')}:</span>
+          <span style={{ textShadow: '1px 1px 2px yellow' }} className="text-sm">{milliseconds.toString().padStart(2, '0')}</span>
         </div>
         <div id="button-container" className="flex w-[200px]">
-          <Button label={isRunning ? 'Pause' : 'Start'} onClick={startStop} small/>
+          <Button label={isRunning ? 'Pause' : 'Start'} onClick={startStop}
+            color={ !isRunning ? 'bg-emerald-500' : undefined } />
           <Button label="Reset" onClick={reset} small outline/>
         </div>
       </div>
