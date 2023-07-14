@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { FaPlay, FaPause } from "react-icons/fa";
+import { FaPlay } from "react-icons/fa";
 
 const Stopwatch = () => {
   const [time, setTime] = useState(0);
@@ -42,11 +42,6 @@ const Stopwatch = () => {
             time > 0 ? "opacity-90" : "opacity-20"
           }`}
         />
-        {/* <FaPause
-          className={`absolute top-4 right-4 text-amber-200 transition ease-in-out ${
-            time > 0 && !isRunning ? "opacity-90" : "opacity-20"
-          }`}
-        /> */}
         <div
           id="time-container"
           className={`
