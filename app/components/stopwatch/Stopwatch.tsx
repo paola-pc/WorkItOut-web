@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { CgSandClock } from "react-icons/cg";
-import Button from "../Button";
+import { FaPlay, FaPause } from "react-icons/fa";
 
 const Stopwatch = () => {
   const [time, setTime] = useState(0);
@@ -38,20 +37,29 @@ const Stopwatch = () => {
         shadow shadow-md shadow-neutral-800
         "
       >
-        <span className={isRunning ? "flip-2-hor-top-1" : ""}>
-          <CgSandClock className="text-2xl text-amber-200 " />
-        </span>
+        <FaPlay
+          className={`absolute top-4 left-4 text-amber-200 transition ease-in-out ${
+            time > 0 ? "opacity-90" : "opacity-20"
+          }`}
+        />
+        {/* <FaPause
+          className={`absolute top-4 right-4 text-amber-200 transition ease-in-out ${
+            time > 0 && !isRunning ? "opacity-90" : "opacity-20"
+          }`}
+        /> */}
         <div
           id="time-container"
           className={`
-          ${time > 0 ? "text-amber-200" : "text-amber-300 opacity-70" } 
+          ${time > 0 ? "text-amber-200" : "text-amber-300 opacity-50"} 
           text-2xl
           bg-black 
           border border-[1px] border-amber-300 border-opacity-40 
-          rounded-xl
+          rounded-full
+          w-[160px]
+          h-[160px]
           px-3 py-1 my-2
-          `
-        }
+          flex justify-center items-center
+          `}
           style={
             time == 0
               ? { textShadow: "none" }
@@ -65,14 +73,39 @@ const Stopwatch = () => {
             {milliseconds.toString().padStart(2, "0")}
           </span>
         </div>
-        <div id="button-container" className="flex w-[200px]">
-          <Button
-            label={isRunning ? "Pause" : "Start"}
-            onClick={startStop}
-            color={!isRunning ? "bg-emerald-500" : undefined}
-            small
-          />
-          <Button label="Reset" onClick={reset} small outline />
+        <div id="button-container" className="flex w-[200px] justify-center text-sm">
+          <button 
+          onClick={startStop}
+          className={`
+            p-2
+            w-[70px]
+            rounded-full
+            hover:opacity-90
+            text-neutral-100
+            transition ease-out
+            ${isRunning ? "bg-rose-700" : "bg-emerald-600"}
+            ${isRunning ? "shadow shadow-md shadow-rose-900 translate-y-[1px]" : "shadow shadow-md shadow-emerald-900"}
+            mx-2
+          `}
+          >
+            {isRunning ? "Pause" : "Start"}
+          </button>
+          <button
+            onClick={reset}
+            className={`
+            p-2
+            w-[70px]
+            rounded-full
+            hover:opacity-80
+            text-neutral-900
+            bg-neutral-200
+            translate ease-in duration-300
+            ${time > 0 ? 'shadow shadow-md shadow-neutral-500' : 'opacity-70 translate-y-[1px]' }
+            mx-2
+            `}
+          >
+            Reset
+          </button>
         </div>
       </div>
     </div>
