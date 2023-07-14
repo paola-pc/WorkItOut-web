@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { CgSandClock } from "react-icons/cg";
 import Button from "../Button";
 
 const Stopwatch = () => {
@@ -30,35 +31,37 @@ const Stopwatch = () => {
   return (
     <div className="relative">
       <div
-        className="absolute mt-24 flex flex-col items-center p-6
+        className="absolute mt-24 flex flex-col items-center px-2 py-4 mx-1
         border border-black border-2
-        rounded-lg
-        text-neutral-900
-      "
+        rounded-xl
+        bg-neutral-900
+        shadow shadow-md shadow-neutral-800
+        "
       >
+        <span className={isRunning ? "flip-2-hor-top-1" : ""}>
+          <CgSandClock className="text-2xl text-amber-200 " />
+        </span>
         <div
           id="time-container"
-          className="
-            text-2xl
-            text-amber-200 
-            bg-black 
-            rounded-xl
-            p-3 mb-3
-          "
+          className={`
+          ${time > 0 ? "text-amber-200" : "text-amber-300 opacity-70" } 
+          text-2xl
+          bg-black 
+          border border-[1px] border-amber-300 border-opacity-40 
+          rounded-xl
+          px-3 py-1 my-2
+          `
+        }
+          style={
+            time == 0
+              ? { textShadow: "none" }
+              : { textShadow: "3px 3px 15px #ffffcc" }
+          }
         >
-          <span style={{ textShadow: "3px 3px 15px #ffffcc" }}>
-            {hours.toString().padStart(2, "0")}:
-          </span>
-          <span style={{ textShadow: "3px 3px 15px #ffffcc"  }}>
-            {minutes.toString().padStart(2, "0")}:
-          </span>
-          <span style={{ textShadow: "3px 3px 15px #ffffcc"  }}>
-            {seconds.toString().padStart(2, "0")}:
-          </span>
-          <span
-            style={{ textShadow: "3px 3px 15px #ffffcc"  }}
-            className="text-sm"
-          >
+          <span>{hours.toString().padStart(2, "0")}:</span>
+          <span>{minutes.toString().padStart(2, "0")}:</span>
+          <span>{seconds.toString().padStart(2, "0")}:</span>
+          <span className="text-sm">
             {milliseconds.toString().padStart(2, "0")}
           </span>
         </div>
@@ -67,6 +70,7 @@ const Stopwatch = () => {
             label={isRunning ? "Pause" : "Start"}
             onClick={startStop}
             color={!isRunning ? "bg-emerald-500" : undefined}
+            small
           />
           <Button label="Reset" onClick={reset} small outline />
         </div>
