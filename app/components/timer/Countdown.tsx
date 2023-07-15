@@ -91,7 +91,7 @@ const Countdown: React.FC<CountdownProps> = ({
             {!timer.isRunning() && remainingTime === 0 && <BsHourglassBottom/>}
             {!timer.isRunning() && time%remainingTime > 0 && <BsHourglassSplit/>}
           </div>
-          <span className="text-xl">
+          <span className="text-2xl">
             {new Date(remainingTime).toISOString().slice(11, 19)}
           </span>
           <span
