@@ -1,8 +1,14 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { useTimer } from "react-use-precision-timer";
-import Button from "../Button";
 import { RxLoop } from "react-icons/rx";
+import {
+  BsHourglassBottom,
+  BsHourglassSplit,
+  BsHourglassTop,
+} from "react-icons/bs";
+import BtnAB from "../BtnAB";
+import BtnSwitch from "../BtnSwitch";
 
 interface CountdownProps {
   time: number;
@@ -32,9 +38,16 @@ const Countdown: React.FC<CountdownProps> = ({
     action
   );
 
-  const handleStart = () => {
-    timer.start();
-    setRemainingTime(timer.getRemainingTime());
+  const handleStartStop = () => {
+    if (timer.isRunning()) {
+      timer.pause();
+      setRemainingTime(timer.getRemainingTime());
+    } else if (timer.isPaused()) {
+      timer.resume();
+    } else {
+      timer.start();
+      setRemainingTime(timer.getRemainingTime());
+    }
   };
 
   const handleReset = () => {
@@ -61,7 +74,7 @@ const Countdown: React.FC<CountdownProps> = ({
         {/* header */}
         <div id="timer-header">
           <span>{title}</span>
-          <button onClick={handleLoop} className="absolute right-2 top-2">
+          <button onClick={handleLoop} className="absolute right-4 top-4">
             <RxLoop className={`${runsOnce && "opacity-30"}`} />
           </button>
         </div>
@@ -69,30 +82,39 @@ const Countdown: React.FC<CountdownProps> = ({
           id="timer-info"
           className="flex flex-col items-center justify-around"
         >
-          <span>{new Date(remainingTime).toISOString().slice(11, 19)}</span>
+          <div className="text-2xl text-amber-500">
+            {timer.isRunning() ? (
+              <BsHourglassSplit />
+            ) : remainingTime === 0 ? (
+              <BsHourglassBottom />
+            ) : (
+              <BsHourglassTop />
+            )}
+          </div>
+          <span className="text-xl">
+            {new Date(remainingTime).toISOString().slice(11, 19)}
+          </span>
           <span
-            className={`text-sm italic text-neutral-600 transition ${
-              remainingTime === 0 ? "opacity-70" : "opacity-0"
-            }
+            className={`
+            text-sm italic text-neutral-600 transition 
+            ${remainingTime === 0 ? "opacity-70" : "opacity-0"}
 					`}
           >
             {counter > 1 ? `Finished ${counter} times.` : "Finished"}
           </span>
         </div>
         <div id="timer-buttons" className="w-[180px] flex">
-          <Button
-            label={`${
-              remainingTime === 0 && !timer.isRunning()
-                ? "Restart"
-                : remainingTime > 0 && !timer.isRunning()
-                ? "Start"
-                : "Pause"
-            }`}
-            onClick={handleStart}
-            color={timer.isRunning() ? "" : "bg-emerald-500"}
-            small
-          ></Button>
-          <Button label="Reset" onClick={handleReset} outline small></Button>
+          <BtnAB
+            action={handleStartStop}
+            condition={timer.isRunning()}
+            labelA={"Pause"}
+            labelB={remainingTime > 0 ? "Start" : "Restart"}
+          />
+          <BtnSwitch
+            action={handleReset}
+            label="Reset"
+            condition={remainingTime < time}
+          />
         </div>
       </div>
     </div>

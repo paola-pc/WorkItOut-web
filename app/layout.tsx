@@ -3,8 +3,8 @@ import Navbar from './components/navbar/Navbar'
 import './globals.css'
 import { Nunito } from 'next/font/google'
 import ToasterProvider from './providers/ToasterProvider'
-import Stopwatch from './components/stopwatch/Stopwatch'
-import Countdown from './components/stopwatch/Countdown'
+import Stopwatch from './components/timer/Stopwatch'
+import Countdown from './components/timer/Countdown'
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -26,7 +26,7 @@ export default function RootLayout({
         <RegisterModal />
         <Navbar />
         <Stopwatch/>
-        <Countdown time={3000} loop={false}/>
+        <Countdown time={6000} loop={false}/>
         {children}
       </body>
     </html>
