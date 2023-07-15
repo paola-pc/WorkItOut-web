@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
 
+
 const Stopwatch = () => {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
@@ -78,7 +79,7 @@ const Stopwatch = () => {
             hover:opacity-90
             text-neutral-100
             transition ease-out
-            ${isRunning ? "bg-rose-700" : "bg-emerald-600"}
+            ${isRunning ? "bg-rose-700" : "bg-emerald-500"}
             ${isRunning ? "shadow shadow-md shadow-rose-900 translate-y-[1px]" : "shadow shadow-md shadow-emerald-900"}
             mx-2
           `}
