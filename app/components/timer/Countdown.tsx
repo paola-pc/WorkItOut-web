@@ -25,6 +25,7 @@ const Countdown: React.FC<CountdownProps> = ({
   const [remainingTime, setRemainingTime] = useState(time);
   const [runsOnce, setrunsOnce] = useState(!loop);
   let [counter, setCounter] = useState(0);
+  const [animate, setAnimate] = useState(false);
   const action = useCallback(() => {
     console.log("boom");
     setCounter((currentCount) => currentCount + 1);
@@ -46,6 +47,7 @@ const Countdown: React.FC<CountdownProps> = ({
       timer.resume();
     } else {
       timer.start();
+      remainingTime > 0 ? setAnimate(false) : setAnimate(true)
       setRemainingTime(timer.getRemainingTime());
     }
   };
@@ -53,6 +55,7 @@ const Countdown: React.FC<CountdownProps> = ({
   const handleReset = () => {
     timer.stop();
     setRemainingTime(time);
+    setAnimate(true)
   };
 
   const handleLoop = () => {
@@ -82,14 +85,11 @@ const Countdown: React.FC<CountdownProps> = ({
           id="timer-info"
           className="flex flex-col items-center justify-around"
         >
-          <div className="text-2xl text-amber-500">
-            {timer.isRunning() ? (
-              <BsHourglassSplit />
-            ) : remainingTime === 0 ? (
-              <BsHourglassBottom />
-            ) : (
-              <BsHourglassTop />
-            )}
+          <div className={`text-2xl text-amber-500 ${ animate ? "flip-2-hor-top-1" : ""}`} >
+            {timer.isRunning() && <BsHourglassSplit/>}
+            {remainingTime === time && <BsHourglassTop/>}
+            {!timer.isRunning() && remainingTime === 0 && <BsHourglassBottom/>}
+            {!timer.isRunning() && time%remainingTime > 0 && <BsHourglassSplit/>}
           </div>
           <span className="text-xl">
             {new Date(remainingTime).toISOString().slice(11, 19)}
